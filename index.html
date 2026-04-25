@@ -460,6 +460,14 @@ table.ctable tr:hover td{color:rgba(247,243,236,.75)}
 .submit-btn.done{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:#4ade80;box-shadow:none;transform:none}
 .form-note{font-size:.68rem;color:rgba(247,243,236,.2);text-align:center;margin-top:.9rem;line-height:1.6}
 
+/* ── CANDIDATE FORM STYLES ── */
+#candidate-form .form-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 20px;
+  padding: 3rem;
+}
+
 /* ── FOOTER ── */
 footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(201,168,76,.08)}
 .footer-top{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -514,14 +522,14 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
       <span class="logo-sub">Global Staffing Solutions</span>
     </div>
   </a>
- <ul class="nav-links">
-  <li><a href="#services">Services</a></li>
-  <li><a href="#markets">Markets</a></li>
-  <li><a href="#why">Why Us</a></li>
-  <li><a href="#process">Process</a></li>
-  <li><a href="#testi">Stories</a></li>
-  <li><a href="#candidate-form">Join Talent Pool</a></li>
-</ul>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testi">Stories</a></li>
+    <li><a href="#candidate-form">Join Talent Pool</a></li>
+  </ul>
   <div class="nav-right">
     <div class="nav-flags">
       <button class="flag-btn on" onclick="setFlag(this)">🇩🇰</button>
@@ -541,7 +549,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
   <div class="hero-grid"></div>
 
   <div class="hero-inner">
-    <!-- Left -->
     <div>
       <div class="hero-eyebrow" style="animation:fadeIn .6s .1s ease both;animation-fill-mode:both">
         <span class="eyebrow-dot"></span>
@@ -571,7 +578,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
       </div>
     </div>
 
-    <!-- Right: Dashboard -->
     <div class="hero-dashboard">
       <div style="position:relative">
         <div class="float-tag">🏆 Top Staffing DK 2024</div>
@@ -903,7 +909,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
         <p>Free consultation · Response within 4 hours</p>
       </div>
       
-      <!-- UPDATED FORM WITH REAL SUBMISSION -->
       <form id="contactForm">
         <div class="fg">
           <label class="fl">Select Market</label>
@@ -956,10 +961,8 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
       </form>
       
       <script>
-        // REPLACE THIS WITH YOUR GOOGLE APPS SCRIPT WEB APP URL
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfKRN-qwBEzEkNM9Om4LVZI3IF6b2Gni8mmDQcYc6xHqjF-ry5tgg5ciWlYk1lewrZ/exec';
         
-        // Handle market selection
         document.querySelectorAll('.region-picker .rp').forEach(btn => {
           btn.addEventListener('click', function() {
             document.querySelectorAll('.region-picker .rp').forEach(b => b.classList.remove('on'));
@@ -968,7 +971,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
           });
         });
         
-        // Handle form submission
         document.getElementById('contactForm').addEventListener('submit', async function(e) {
           e.preventDefault();
           
@@ -976,7 +978,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
           const originalText = submitBtn.textContent;
           const statusEl = document.getElementById('formStatus');
           
-          // Get form data
           const formData = {
             market: document.getElementById('selectedMarket').value,
             firstName: this.querySelector('[name="firstName"]').value,
@@ -986,30 +987,26 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
             hiringNeed: this.querySelector('[name="hiringNeed"]').value,
             timeline: this.querySelector('[name="timeline"]').value,
             message: this.querySelector('[name="message"]').value,
-            };
-                   
-          // Disable button and show loading
+          };
+                 
           submitBtn.disabled = true;
           submitBtn.textContent = 'Sending...';
           statusEl.style.color = '#c9a84c';
           statusEl.textContent = 'Submitting your request...';
           
           try {
-            // Send to Google Sheets
             const response = await fetch(GOOGLE_SCRIPT_URL, {
               method: 'POST',
-              mode: 'no-cors', // Required for Google Apps Script
+              mode: 'no-cors',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(formData)
             });
             
-            // Success
             statusEl.style.color = '#4ade80';
             statusEl.textContent = '✓ Received! We\'ll be in touch within 4 hours.';
             submitBtn.textContent = '✓ Request Sent!';
             this.reset();
             
-            // Reset market picker to default
             document.querySelectorAll('.region-picker .rp').forEach(b => b.classList.remove('on'));
             document.querySelector('.region-picker .rp').classList.add('on');
             document.getElementById('selectedMarket').value = 'Denmark';
@@ -1021,7 +1018,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
             }, 5000);
             
           } catch(error) {
-            // Error
             statusEl.style.color = '#ff6b6b';
             statusEl.textContent = 'Error submitting. Please email us directly at info@greenalliance.dk';
             submitBtn.disabled = false;
@@ -1034,7 +1030,7 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
   </div>
 </section>
 
-  <!-- ── CANDIDATE APPLICATION FORM ── -->
+<!-- ── CANDIDATE APPLICATION FORM ── -->
 <section id="candidate-form" style="background: var(--forest); padding: 5rem 5vw;">
   <div class="markets-wrap">
     <div style="text-align:center; max-width:640px; margin:0 auto">
@@ -1057,18 +1053,28 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
         </div>
         
         <form id="candidateForm">
-          <!-- Personal Information -->
           <div class="fi-row">
-            <div class="fg"><label class="fl">Full Name *</label><input class="fi" type="text" name="fullName" required/></div>
-            <div class="fg"><label class="fl">Email *</label><input class="fi" type="email" name="email" required/></div>
+            <div class="fg">
+              <label class="fl">Full Name *</label>
+              <input class="fi" type="text" name="fullName" required/>
+            </div>
+            <div class="fg">
+              <label class="fl">Email *</label>
+              <input class="fi" type="email" name="email" required/>
+            </div>
           </div>
           
           <div class="fi-row">
-            <div class="fg"><label class="fl">Phone *</label><input class="fi" type="tel" name="phone" placeholder="+45 XX XX XX XX" required/></div>
-            <div class="fg"><label class="fl">Current Location *</label><input class="fi" type="text" name="currentLocation" placeholder="City, Country" required/></div>
+            <div class="fg">
+              <label class="fl">Phone *</label>
+              <input class="fi" type="tel" name="phone" placeholder="+45 XX XX XX XX" required/>
+            </div>
+            <div class="fg">
+              <label class="fl">Current Location *</label>
+              <input class="fi" type="text" name="currentLocation" placeholder="City, Country" required/>
+            </div>
           </div>
           
-          <!-- Professional Details -->
           <div class="fi-row">
             <div class="fg">
               <label class="fl">Sector *</label>
@@ -1156,78 +1162,6 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
   </div>
 </section>
 
-<script>
-// Candidate Form Submission
-const CANDIDATE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_CANDIDATE_SCRIPT_URL/exec';
-
-document.getElementById('candidateForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  const submitBtn = document.getElementById('candidateSubmitBtn');
-  const originalText = submitBtn.textContent;
-  const statusEl = document.getElementById('candidateFormStatus');
-  
-  // Collect form data
-  const formData = {
-    fullName: this.querySelector('[name="fullName"]').value,
-    email: this.querySelector('[name="email"]').value,
-    phone: this.querySelector('[name="phone"]').value,
-    currentLocation: this.querySelector('[name="currentLocation"]').value,
-    sector: this.querySelector('[name="sector"]').value,
-    experience: this.querySelector('[name="experience"]').value,
-    skills: this.querySelector('[name="skills"]').value,
-    location: this.querySelector('[name="location"]').value,
-    salary: this.querySelector('[name="salary"]').value,
-    languages: this.querySelector('[name="languages"]').value,
-    availability: this.querySelector('[name="availability"]').value,
-    education: this.querySelector('[name="education"]').value,
-    notes: this.querySelector('[name="notes"]').value
-  };
-  
-  // Validate required fields
-  if (!formData.fullName || !formData.email || !formData.phone) {
-    statusEl.style.color = '#ff6b6b';
-    statusEl.textContent = 'Please fill all required fields.';
-    return;
-  }
-  
-  // Disable button
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting...';
-  statusEl.style.color = '#c9a84c';
-  statusEl.textContent = 'Submitting your application...';
-  
-  try {
-    const response = await fetch(CANDIDATE_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
-    
-    statusEl.style.color = '#4ade80';
-    statusEl.textContent = '✓ Application received! You will receive a confirmation email within 24 hours.';
-    submitBtn.textContent = '✓ Application Submitted!';
-    
-    // Clear form
-    this.reset();
-    
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = originalText;
-      statusEl.textContent = '';
-    }, 5000);
-    
-  } catch(error) {
-    console.error('Submission error:', error);
-    statusEl.style.color = '#ff6b6b';
-    statusEl.textContent = 'Error submitting. Please email your CV to careers@greenalliance.dk';
-    submitBtn.disabled = false;
-    submitBtn.textContent = originalText;
-  }
-});
-</script>
-  
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-top">
@@ -1241,7 +1175,6 @@ document.getElementById('candidateForm').addEventListener('submit', async functi
         <span class="fmt">🇩🇰 Denmark</span>
         <span class="fmt">🇦🇪 UAE</span>
         <span class="fmt">🇸🇦 KSA</span>
-      </div>
       </div>
     </div>
     <div>
@@ -1316,7 +1249,6 @@ for(let i=0;i<90;i++)particles.push(new Particle());
 function animParticles(){
   ctx.clearRect(0,0,W,H);
   particles.forEach(p=>{p.update();p.draw()});
-  // connect nearby
   for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
     const d=Math.hypot(particles[i].x-particles[j].x,particles[i].y-particles[j].y);
     if(d<100){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(201,168,76,${.08*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke()}
@@ -1351,6 +1283,73 @@ function animateCounters(){
 }
 const statsObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();statsObs.disconnect()}})},{threshold:.3});
 const statsEl=document.querySelector('#stats');if(statsEl)statsObs.observe(statsEl);
+
+/* ── CANDIDATE FORM SUBMISSION ── */
+const CANDIDATE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxUanCAN-u22hJ_7P4SS-dATq-vCkRNzd45MtDwYauEKLYwhBn23kda21HsMSyR7Q2Pow/exec';
+
+if (document.getElementById('candidateForm')) {
+  document.getElementById('candidateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('candidateSubmitBtn');
+    const originalText = submitBtn.textContent;
+    const statusEl = document.getElementById('candidateFormStatus');
+    
+    const formData = {
+      fullName: this.querySelector('[name="fullName"]').value,
+      email: this.querySelector('[name="email"]').value,
+      phone: this.querySelector('[name="phone"]').value,
+      currentLocation: this.querySelector('[name="currentLocation"]').value,
+      sector: this.querySelector('[name="sector"]').value,
+      experience: this.querySelector('[name="experience"]').value,
+      skills: this.querySelector('[name="skills"]').value,
+      location: this.querySelector('[name="location"]').value,
+      salary: this.querySelector('[name="salary"]').value,
+      languages: this.querySelector('[name="languages"]').value,
+      availability: this.querySelector('[name="availability"]').value,
+      education: this.querySelector('[name="education"]').value,
+      notes: this.querySelector('[name="notes"]').value
+    };
+    
+    if (!formData.fullName || !formData.email || !formData.phone) {
+      statusEl.style.color = '#ff6b6b';
+      statusEl.textContent = 'Please fill all required fields.';
+      return;
+    }
+    
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting...';
+    statusEl.style.color = '#c9a84c';
+    statusEl.textContent = 'Submitting your application...';
+    
+    try {
+      const response = await fetch(CANDIDATE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      statusEl.style.color = '#4ade80';
+      statusEl.textContent = '✓ Application received! We will contact you within 24 hours.';
+      submitBtn.textContent = '✓ Application Submitted!';
+      this.reset();
+      
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        statusEl.textContent = '';
+      }, 5000);
+      
+    } catch(error) {
+      console.error('Submission error:', error);
+      statusEl.style.color = '#ff6b6b';
+      statusEl.textContent = 'Error submitting. Please email your CV to careers@greenalliance.dk';
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+}
 </script>
 </body>
 </html>

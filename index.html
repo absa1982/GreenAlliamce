@@ -1238,14 +1238,12 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
 
 <script>
 // AI Matching - Connect to Google Apps Script
-const AI_MATCHER_URL = 'https://script.google.com/macros/s/AKfycbwcM3qv89YL0kh0ub9RlQ61B512bnitx0SbaUrrMYX2hXpG8s8GeQDDPfpy5UC0V7rFnA/exec';
-
+const AI_MATCHER_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AWDtjMUUH8p4psjF1k7EjSkLyUqEETVf6EW8wrLGrtSKMYTjKSR49KDNXqef8DXYBDaiszzYQEPdqKVok_Y9UPu3_6x6yTOy7c8eu9rtGNlSm9TU350Vfd83u0Lj-6cQD6YIVOSzmnwITlO75H5ALSn0mCm4pXijpjgWTrzLbl3FkCCsBuvmbbsZ_ZG_jxnMeAiKSu622Ypp2z0goh1J-5swil3z4WYcag-vr_S5rnSMC52aaxN60UZ8r2gN4P8e95KDCOp2BCG7NylBnIBOZN_EtG-j3VOp4Q&lib=MhGhL3j3jQ5ABMl1wag31eEgL9VzCzrgp';
 async function runAIMatch() {
   const statusEl = document.getElementById('matchStatus');
   const resultsEl = document.getElementById('matchResults');
   const btn = document.getElementById('runMatchBtn');
   
-  // Collect form data
   const jobRequest = {
     market: document.getElementById('aiMarket').value,
     hiringNeed: document.getElementById('aiSector').value,
@@ -1254,9 +1252,8 @@ async function runAIMatch() {
     message: document.getElementById('aiDescription').value
   };
   
-  // Show loading state
-  statusEl.innerHTML = '<span style="color:#c9a84c;">🔍 Searching candidate database...</span>';
-  resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">Searching...</div>';
+  statusEl.innerHTML = '<span style="color:#c9a84c;">🔍 Searching...</span>';
+  resultsEl.innerHTML = '<div style="text-align:center; padding:2rem;">Searching...</div>';
   btn.disabled = true;
   btn.textContent = 'Searching...';
   
@@ -1271,36 +1268,28 @@ async function runAIMatch() {
     console.log('Match result:', result);
     
     if (result.success && result.matches && result.matches.length > 0) {
-      statusEl.innerHTML = `<span style="color:#4ade80;">✅ Found ${result.matches.length} matching candidates</span>`;
+      statusEl.innerHTML = `<span style="color:#4ade80;">✅ Found ${result.matches.length} matches</span>`;
       
-      // Display real matches from Google Sheet
       resultsEl.innerHTML = result.matches.map(candidate => `
         <div style="background:rgba(255,255,255,.03); border-radius:12px; padding:1rem; margin-bottom:1rem; border-left: 3px solid #c9a84c;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-            <div><strong style="color:var(--gold); font-size:1.1rem;">${candidate.name || 'Unknown'}</strong></div>
-            <div style="background:rgba(74,222,128,.15); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem; font-weight:bold;">${candidate.score || 0}% Match</div>
+          <div style="display:flex; justify-content:space-between;">
+            <strong style="color:var(--gold);">${candidate.name}</strong>
+            <span style="background:rgba(74,222,128,.15); padding:2px 8px; border-radius:20px;">${candidate.score}%</span>
           </div>
-          <div style="font-size:0.8rem; color:rgba(247,243,236,.6);">
-            📍 ${candidate.location || 'Unknown'} | 🏭 ${candidate.sector || 'Unknown'} | ⭐ ${candidate.experience || '?'} years
-          </div>
-          <div style="font-size:0.75rem; margin-top:0.5rem; color:rgba(247,243,236,.5);">
-            ${candidate.matchDetails ? candidate.matchDetails.join(' · ') : ''}
-          </div>
-          <div style="font-size:0.7rem; color:var(--gold-lt); margin-top:0.5rem;">
-            📧 ${candidate.email || 'No email'} | 📞 ${candidate.phone || 'No phone'}
-          </div>
+          <div style="font-size:13px; margin:5px 0;">📍 ${candidate.location} | 🏭 ${candidate.sector} | ⭐ ${candidate.experience} years</div>
+          <div style="font-size:12px; color:var(--gold-lt);">📧 ${candidate.email} | 📞 ${candidate.phone}</div>
         </div>
       `).join('');
       
     } else {
-      statusEl.innerHTML = '<span style="color:#ff9f4a;">⚠️ No matching candidates found. Try adjusting your criteria.</span>';
-      resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">No matches found. Try different sector, location, or skills.<br><br>Make sure your candidate database has "Active" candidates.</div>';
+      statusEl.innerHTML = '<span style="color:#ff9f4a;">⚠️ No matches found</span>';
+      resultsEl.innerHTML = '<div style="text-align:center; padding:2rem;">No matching candidates. Try different criteria.</div>';
     }
     
   } catch(error) {
-    console.error('Match error:', error);
-    statusEl.innerHTML = '<span style="color:#ff6b6b;">❌ Error connecting to matching engine. Please try again.</span>';
-    resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">Error connecting to server. Please refresh and try again.<br><br>Error: ' + error.message + '</div>';
+    console.error('Error:', error);
+    statusEl.innerHTML = '<span style="color:#ff6b6b;">❌ Error: ' + error.message + '</span>';
+    resultsEl.innerHTML = '<div style="text-align:center; padding:2rem;">Connection error. Check console.</div>';
   }
   
   btn.disabled = false;

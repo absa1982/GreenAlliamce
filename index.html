@@ -1252,13 +1252,13 @@ async function runAIMatch() {
     message: document.getElementById('aiDescription').value
   };
   
-  statusEl.innerHTML = '<span style="color:#c9a84c;">🔍 Searching...</span>';
+  statusEl.innerHTML = '<span style="color:#c9a84c;">🔍 Searching candidate database...</span>';
   resultsEl.innerHTML = '<div style="text-align:center; padding:2rem;">Searching...</div>';
   btn.disabled = true;
   btn.textContent = 'Searching...';
   
   try {
-    const response = await fetch(AI_MATCHER_URL, {
+    const response = await fetch('/api/match', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(jobRequest)
@@ -1268,28 +1268,35 @@ async function runAIMatch() {
     console.log('Match result:', result);
     
     if (result.success && result.matches && result.matches.length > 0) {
-      statusEl.innerHTML = `<span style="color:#4ade80;">✅ Found ${result.matches.length} matches</span>`;
+      statusEl.innerHTML = `<span style="color:#4ade80;">✅ Found ${result.matches.length} matching candidates</span>`;
       
       resultsEl.innerHTML = result.matches.map(candidate => `
         <div style="background:rgba(255,255,255,.03); border-radius:12px; padding:1rem; margin-bottom:1rem; border-left: 3px solid #c9a84c;">
-          <div style="display:flex; justify-content:space-between;">
-            <strong style="color:var(--gold);">${candidate.name}</strong>
-            <span style="background:rgba(74,222,128,.15); padding:2px 8px; border-radius:20px;">${candidate.score}%</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <div><strong style="color:var(--gold); font-size:1.1rem;">${candidate.name || 'Unknown'}</strong></div>
+            <div style="background:rgba(74,222,128,.15); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem; font-weight:bold;">${candidate.score || 0}% Match</div>
           </div>
-          <div style="font-size:13px; margin:5px 0;">📍 ${candidate.location} | 🏭 ${candidate.sector} | ⭐ ${candidate.experience} years</div>
-          <div style="font-size:12px; color:var(--gold-lt);">📧 ${candidate.email} | 📞 ${candidate.phone}</div>
+          <div style="font-size:0.8rem; color:rgba(247,243,236,.6);">
+            📍 ${candidate.location || 'Unknown'} | 🏭 ${candidate.sector || 'Unknown'} | ⭐ ${candidate.experience || '?'} years
+          </div>
+          <div style="font-size:0.75rem; margin-top:0.5rem; color:rgba(247,243,236,.5);">
+            ${candidate.matchDetails ? candidate.matchDetails.join(' · ') : ''}
+          </div>
+          <div style="font-size:0.7rem; color:var(--gold-lt); margin-top:0.5rem;">
+            📧 ${candidate.email || 'No email'} | 📞 ${candidate.phone || 'No phone'}
+          </div>
         </div>
       `).join('');
       
     } else {
-      statusEl.innerHTML = '<span style="color:#ff9f4a;">⚠️ No matches found</span>';
-      resultsEl.innerHTML = '<div style="text-align:center; padding:2rem;">No matching candidates. Try different criteria.</div>';
+      statusEl.innerHTML = '<span style="color:#ff9f4a;">⚠️ No matching candidates found. Try adjusting your criteria.</span>';
+      resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">No matches found. Try different sector, location, or skills.</div>';
     }
     
   } catch(error) {
-    console.error('Error:', error);
+    console.error('Match error:', error);
     statusEl.innerHTML = '<span style="color:#ff6b6b;">❌ Error: ' + error.message + '</span>';
-    resultsEl.innerHTML = '<div style="text-align:center; padding:2rem;">Connection error. Check console.</div>';
+    resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">Error connecting to server. Please refresh and try again.</div>';
   }
   
   btn.disabled = false;

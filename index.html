@@ -985,17 +985,8 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
             hiringNeed: this.querySelector('[name="hiringNeed"]').value,
             timeline: this.querySelector('[name="timeline"]').value,
             message: this.querySelector('[name="message"]').value,
-            ip: '',
-            userAgent: navigator.userAgent
-          };
-          
-          // Get IP address (using free API)
-          try {
-            const ipRes = await fetch('https://api.ipify.org?format=json');
-            const ipData = await ipRes.json();
-            formData.ip = ipData.ip;
-          } catch(e) { console.log('Could not get IP'); }
-          
+            };
+                   
           // Disable button and show loading
           submitBtn.disabled = true;
           submitBtn.textContent = 'Sending...';

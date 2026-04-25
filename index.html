@@ -1161,7 +1161,7 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
     </div>
   </div>
 </section>
-  <!-- ── AI MATCHING DEMO ── -->
+  <!-- ── AI MATCHING ENGINE ── -->
 <section id="ai-matcher" style="background: var(--ink); padding: 5rem 5vw;">
   <div class="markets-wrap">
     <div style="text-align:center; max-width:640px; margin:0 auto">
@@ -1196,7 +1196,7 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
           <select id="aiSector" class="fi">
             <option value="Green Energy">🌱 Green Energy</option>
             <option value="Construction">🏗️ Construction</option>
-            <option value="Facility">🧹 Facility Management</option>
+            <option value="Facility Management">🧹 Facility Management</option>
             <option value="Logistics">🚚 Logistics</option>
             <option value="Finance">💼 Finance</option>
             <option value="Healthcare">🏥 Healthcare</option>
@@ -1210,7 +1210,7 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
         
         <div class="fg">
           <label class="fl">Key Skills (comma separated)</label>
-          <input type="text" id="aiSkills" class="fi" placeholder="Python, Project Management, SAP">
+          <input type="text" id="aiSkills" class="fi" placeholder="Project Management, Python, SAP">
         </div>
         
         <div class="fg">
@@ -1240,96 +1240,70 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
 const AI_MATCHER_URL = 'https://script.google.com/macros/s/AKfycbwcM3qv89YL0kh0ub9RlQ61B512bnitx0SbaUrrMYX2hXpG8s8GeQDDPfpy5UC0V7rFnA/exec';
 
 async function runAIMatch() {
-  ...
-}
   const statusEl = document.getElementById('matchStatus');
   const resultsEl = document.getElementById('matchResults');
   const btn = document.getElementById('runMatchBtn');
   
+  // Collect form data
   const jobRequest = {
     market: document.getElementById('aiMarket').value,
     hiringNeed: document.getElementById('aiSector').value,
-    timeline: 'Within 1 month',
-    message: document.getElementById('aiDescription').value || 
-             `${document.getElementById('aiSkills').value} ${document.getElementById('aiExperience')}+ years experience`
+    experience: document.getElementById('aiExperience').value,
+    skills: document.getElementById('aiSkills').value,
+    message: document.getElementById('aiDescription').value
   };
   
-  // Add custom experience
-  const expInput = document.getElementById('aiExperience').value;
-  if (expInput) {
-    jobRequest.message += `, ${expInput}+ years experience`;
-  }
-  
-  // Add skills
-  const skillsInput = document.getElementById('aiSkills').value;
-  if (skillsInput) {
-    jobRequest.message += `, Skills: ${skillsInput}`;
-  }
-  
+  // Show loading state
   statusEl.innerHTML = '<span style="color:#c9a84c;">🔍 Searching candidate database...</span>';
-  statusEl.style.color = '#c9a84c';
+  resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">Searching...</div>';
   btn.disabled = true;
   btn.textContent = 'Searching...';
   
   try {
     const response = await fetch(AI_MATCHER_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(jobRequest)
     });
     
-    // Since mode is no-cors, we need a workaround
-    // Instead, we'll use a simple response simulation
-    statusEl.innerHTML = '<span style="color:#4ade80;">✅ Search completed! Check your email for results.</span>';
+    const result = await response.json();
+    console.log('Match result:', result);
     
-    // Display sample results (until we get real response)
-    displaySampleResults();
-    
-    btn.disabled = false;
-    btn.textContent = '🔍 Find Matching Candidates →';
+    if (result.success && result.matches && result.matches.length > 0) {
+      statusEl.innerHTML = `<span style="color:#4ade80;">✅ Found ${result.matches.length} matching candidates</span>`;
+      
+      // Display real matches from Google Sheet
+      resultsEl.innerHTML = result.matches.map(candidate => `
+        <div style="background:rgba(255,255,255,.03); border-radius:12px; padding:1rem; margin-bottom:1rem; border-left: 3px solid #c9a84c;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+            <div><strong style="color:var(--gold); font-size:1.1rem;">${candidate.name || 'Unknown'}</strong></div>
+            <div style="background:rgba(74,222,128,.15); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem; font-weight:bold;">${candidate.score || 0}% Match</div>
+          </div>
+          <div style="font-size:0.8rem; color:rgba(247,243,236,.6);">
+            📍 ${candidate.location || 'Unknown'} | 🏭 ${candidate.sector || 'Unknown'} | ⭐ ${candidate.experience || '?'} years
+          </div>
+          <div style="font-size:0.75rem; margin-top:0.5rem; color:rgba(247,243,236,.5);">
+            ${candidate.matchDetails ? candidate.matchDetails.join(' · ') : ''}
+          </div>
+          <div style="font-size:0.7rem; color:var(--gold-lt); margin-top:0.5rem;">
+            📧 ${candidate.email || 'No email'} | 📞 ${candidate.phone || 'No phone'}
+          </div>
+        </div>
+      `).join('');
+      
+    } else {
+      statusEl.innerHTML = '<span style="color:#ff9f4a;">⚠️ No matching candidates found. Try adjusting your criteria.</span>';
+      resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">No matches found. Try different sector, location, or skills.<br><br>Make sure your candidate database has "Active" candidates.</div>';
+    }
     
   } catch(error) {
     console.error('Match error:', error);
     statusEl.innerHTML = '<span style="color:#ff6b6b;">❌ Error connecting to matching engine. Please try again.</span>';
-    btn.disabled = false;
-    btn.textContent = '🔍 Find Matching Candidates →';
+    resultsEl.innerHTML = '<div style="text-align:center; padding:2rem; color:rgba(247,243,236,.3);">Error connecting to server. Please refresh and try again.<br><br>Error: ' + error.message + '</div>';
   }
-}
-
-function displaySampleResults() {
-  const resultsEl = document.getElementById('matchResults');
-  resultsEl.innerHTML = `
-    <div style="background:rgba(255,255,255,.03); border-radius:12px; padding:1rem; margin-bottom:1rem;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-        <div><strong style="color:var(--gold);">Ahmed Hassan</strong> <span style="font-size:0.75rem;">C001</span></div>
-        <div style="background:rgba(74,222,128,.15); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem;">85% Match</div>
-      </div>
-      <div style="font-size:0.8rem; color:rgba(247,243,236,.6);">📍 UAE | 🌱 Green Energy | ⭐ 8 years</div>
-      <div style="font-size:0.75rem; margin-top:0.5rem;">✓ Sector match: Green Energy, ✓ Location match: UAE, ✓ Experience: 8+ years</div>
-      <div style="font-size:0.7rem; color:var(--gold-lt); margin-top:0.5rem;">📧 ahmed@email.com | 📞 +971 XX XXX XXXX</div>
-    </div>
-    
-    <div style="background:rgba(255,255,255,.03); border-radius:12px; padding:1rem; margin-bottom:1rem;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-        <div><strong style="color:var(--gold);">Fatima Al-Mansouri</strong> <span style="font-size:0.75rem;">C006</span></div>
-        <div style="background:rgba(74,222,128,.15); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem;">72% Match</div>
-      </div>
-      <div style="font-size:0.8rem; color:rgba(247,243,236,.6);">📍 UAE | 🌱 Green Energy | ⭐ 4 years</div>
-      <div style="font-size:0.75rem; margin-top:0.5rem;">✓ Sector match: Green Energy, ✓ Location match: UAE</div>
-      <div style="font-size:0.7rem; color:var(--gold-lt); margin-top:0.5rem;">📧 fatima@email.com | 📞 +971 XX XXX XXXX</div>
-    </div>
-    
-    <div style="background:rgba(255,255,255,.03); border-radius:12px; padding:1rem;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
-        <div><strong style="color:var(--gold);">Maria Jensen</strong> <span style="font-size:0.75rem;">C005</span></div>
-        <div style="background:rgba(74,222,128,.15); padding:0.2rem 0.6rem; border-radius:20px; font-size:0.7rem;">68% Match</div>
-      </div>
-      <div style="font-size:0.8rem; color:rgba(247,243,236,.6);">📍 Denmark | 🚚 Logistics | ⭐ 9 years</div>
-      <div style="font-size:0.75rem; margin-top:0.5rem;">✓ Experience: 9+ years, ✓ Available within 1 week</div>
-      <div style="font-size:0.7rem; color:var(--gold-lt); margin-top:0.5rem;">📧 maria@email.com | 📞 +45 XX XX XX XX</div>
-    </div>
-  `;
+  
+  btn.disabled = false;
+  btn.textContent = '🔍 Find Matching Candidates →';
 }
 </script>
 

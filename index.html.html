@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Green Alliance — Global Staffing Excellence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,700;1,9..144,200;1,9..144,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#060e08;
+  --forest:#0a2212;
+  --emerald:#0f3320;
+  --jade:#1a5c38;
+  --gold:#c9a84c;
+  --gold-lt:#e2c97e;
+  --gold-dk:#a07830;
+  --ivory:#f7f3ec;
+  --white:#ffffff;
+  --muted:#8a9490;
+  --glass:rgba(255,255,255,.04);
+  --glass-border:rgba(255,255,255,.09);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--ink);color:var(--ivory);overflow-x:hidden;cursor:none}
+
+/* ── CURSOR ── */
+#cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform .15s ease,opacity .2s;mix-blend-mode:difference}
+#cursor-ring{position:fixed;width:40px;height:40px;border:1px solid rgba(201,168,76,.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform .4s cubic-bezier(.23,1,.32,1)}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(2deg)}}
+@keyframes floatB{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.9;transform:scale(1.15)}}
+@keyframes gradShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes borderSpin{to{--angle:360deg}}
+@keyframes lineExpand{from{width:0}to{width:100%}}
+@keyframes countAnim{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes shimmerGold{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes orb1{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,-40px) scale(1.1)}66%{transform:translate(-30px,50px) scale(.9)}}
+@keyframes orb2{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(-50px,30px) scale(.95)}66%{transform:translate(40px,-60px) scale(1.05)}}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rv.on{opacity:1;transform:none}
+.rl{opacity:0;transform:translateX(-36px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rl.on{opacity:1;transform:none}
+.rr{opacity:0;transform:translateX(36px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rr.on{opacity:1;transform:none}
+.rs{opacity:0;transform:scale(.92);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.rs.on{opacity:1;transform:none}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.6rem 5vw;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:all .5s cubic-bezier(.16,1,.3,1);
+}
+nav.stuck{
+  padding:1rem 5vw;
+  background:rgba(6,14,8,.88);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid rgba(201,168,76,.1);
+  box-shadow:0 4px 40px rgba(0,0,0,.4);
+}
+.logo{display:flex;align-items:center;gap:.9rem;text-decoration:none}
+.logo-mark{
+  width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-dk));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;
+  color:var(--ink);position:relative;overflow:hidden;
+}
+.logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent)}
+.logo-text{line-height:1.15}
+.logo-name{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;color:var(--white);display:block;letter-spacing:.01em}
+.logo-sub{font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.6);display:block}
+.nav-links{display:flex;gap:2.4rem;list-style:none;align-items:center}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.06em;color:rgba(247,243,236,.45);text-decoration:none;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--gold);transition:width .3s ease}
+.nav-links a:hover{color:var(--ivory)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-flags{display:flex;gap:.4rem}
+.flag-btn{
+  width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(201,168,76,.2);
+  background:transparent;cursor:none;font-size:.95rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .25s;
+}
+.flag-btn:hover,.flag-btn.on{border-color:var(--gold);background:rgba(201,168,76,.1);transform:scale(1.1)}
+.cta-nav{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.75rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink)!important;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold));
+  padding:.7rem 1.6rem;border-radius:4px;text-decoration:none;
+  box-shadow:0 4px 20px rgba(201,168,76,.3);
+  transition:transform .25s,box-shadow .25s!important;
+}
+.cta-nav:hover{transform:translateY(-2px)!important;box-shadow:0 8px 30px rgba(201,168,76,.45)!important}
+.cta-nav::after{display:none!important}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;position:relative;
+  display:flex;align-items:center;
+  padding:8rem 5vw 5rem;
+  overflow:hidden;background:var(--ink);
+}
+#particles-canvas{position:absolute;inset:0;z-index:0}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:1}
+.orb-a{width:500px;height:500px;background:rgba(15,51,32,.6);top:-100px;right:-100px;animation:orb1 15s ease-in-out infinite}
+.orb-b{width:350px;height:350px;background:rgba(201,168,76,.05);bottom:0;left:10%;animation:orb2 12s ease-in-out infinite}
+.hero-noise{position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");pointer-events:none;z-index:1}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:80px 80px;z-index:1}
+.hero-inner{max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:3}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.7rem;margin-bottom:2rem;animation:fadeIn .6s ease both}
+.eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2.5s ease infinite}
+.eyebrow-text{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.8)}
+.eyebrow-divider{width:30px;height:1px;background:rgba(201,168,76,.3)}
+h1.display{
+  font-family:'Fraunces',serif;font-weight:200;
+  font-size:clamp(3.2rem,6vw,5.5rem);
+  line-height:1.02;letter-spacing:-.02em;color:var(--white);
+  margin-bottom:1.8rem;
+}
+h1.display em{font-style:italic;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmerGold 4s linear infinite;
+}
+.hero-body{font-size:1.05rem;line-height:1.85;color:rgba(247,243,236,.5);max-width:480px;margin-bottom:3rem;animation:fadeUp .9s .3s ease both;animation-fill-mode:both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .9s .4s ease both;animation-fill-mode:both}
+.btn-primary{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));
+  background-size:200% auto;
+  color:var(--ink);padding:1rem 2.4rem;border:none;border-radius:4px;
+  cursor:none;text-decoration:none;
+  box-shadow:0 8px 32px rgba(201,168,76,.35);
+  transition:transform .25s,box-shadow .25s,background-position .4s;
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(201,168,76,.5);background-position:right center}
+.btn-ghost{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:rgba(247,243,236,.7);
+  background:transparent;border:1px solid rgba(247,243,236,.15);
+  padding:1rem 2.4rem;border-radius:4px;cursor:none;text-decoration:none;
+  transition:all .25s;
+}
+.btn-ghost:hover{border-color:rgba(201,168,76,.4);color:var(--gold-lt)}
+.hero-social-proof{display:flex;align-items:center;gap:1.5rem;margin-top:2.8rem;padding-top:2.2rem;border-top:1px solid rgba(255,255,255,.07);animation:fadeIn 1s .6s ease both;animation-fill-mode:both}
+.avatar-stack{display:flex}
+.avatar-stack .av{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);background:linear-gradient(135deg,var(--forest),var(--jade));display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--gold);margin-left:-8px}
+.avatar-stack .av:first-child{margin-left:0}
+.sp-text{font-size:.8rem;color:rgba(247,243,236,.45);line-height:1.5}
+.sp-text strong{color:rgba(247,243,236,.8);display:block}
+
+/* HERO RIGHT - Glass Dashboard */
+.hero-dashboard{animation:fadeIn 1s .5s ease both;animation-fill-mode:both;position:relative}
+.glass-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;padding:2rem;
+  backdrop-filter:blur(12px);
+  position:relative;overflow:hidden;
+}
+.glass-card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent)}
+.dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.dash-title{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.6)}
+.live-dot{display:flex;align-items:center;gap:.4rem;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#4ade80}
+.live-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s ease infinite}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:12px;overflow:hidden;margin-bottom:1.2rem}
+.kpi{background:rgba(255,255,255,.03);padding:1.3rem 1rem;text-align:center;transition:background .25s}
+.kpi:hover{background:rgba(201,168,76,.06)}
+.kpi-val{font-family:'Fraunces',serif;font-size:2rem;font-weight:400;color:var(--gold-lt);line-height:1}
+.kpi-key{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,243,236,.3);margin-top:.3rem}
+.market-flags-row{display:flex;gap:.7rem;margin-bottom:1.2rem}
+.mflag{
+  flex:1;display:flex;align-items:center;gap:.6rem;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:.7rem .9rem;transition:all .25s;cursor:none;
+}
+.mflag:hover{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.2)}
+.mflag-emoji{font-size:1.1rem}
+.mflag-info{line-height:1.2}
+.mflag-name{font-size:.72rem;font-weight:600;color:rgba(247,243,236,.75)}
+.mflag-status{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.s-live{color:#4ade80}.s-new{color:var(--gold)}
+.sector-pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.pill{font-size:.62rem;font-weight:600;letter-spacing:.06em;padding:.3rem .7rem;border-radius:20px;border:1px solid rgba(201,168,76,.18);color:rgba(201,168,76,.65);background:rgba(201,168,76,.04);transition:all .2s}
+.pill:hover{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.35);color:var(--gold-lt)}
+.float-tag{
+  position:absolute;top:-18px;right:16px;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold));
+  color:var(--ink);font-size:.68rem;font-weight:800;letter-spacing:.06em;
+  padding:.5rem 1.1rem;border-radius:30px;white-space:nowrap;
+  box-shadow:0 8px 24px rgba(201,168,76,.4);
+  animation:floatB 3.5s ease-in-out infinite;
+}
+.mini-badge{
+  position:absolute;bottom:-14px;left:30px;
+  background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);
+  color:#4ade80;font-size:.65rem;font-weight:700;
+  padding:.4rem 1rem;border-radius:20px;
+  animation:floatB 4s 1s ease-in-out infinite;
+}
+
+/* ── MARQUEE ── */
+.marquee-wrap{
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--gold-lt),var(--gold),var(--gold-dk));
+  background-size:300% auto;
+  padding:.9rem 0;
+  border-top:1px solid rgba(201,168,76,.2);
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+.marquee-track{display:flex;white-space:nowrap;animation:marquee 22s linear infinite}
+.marquee-item{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:0 2rem;
+  font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);
+}
+.marquee-sep{opacity:.5}
+
+/* ── STATS SECTION ── */
+#stats{padding:6rem 5vw;background:var(--forest);position:relative;overflow:hidden}
+#stats::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(201,168,76,.05) 0%,transparent 60%)}
+.stats-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden}
+.stat-block{background:var(--forest);padding:3rem 2rem;text-align:center;position:relative;transition:background .3s;cursor:default}
+.stat-block:hover{background:rgba(255,255,255,.03)}
+.stat-block::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3),transparent);transform:scaleX(0);transition:transform .4s}
+.stat-block:hover::after{transform:scaleX(1)}
+.stat-n{font-family:'Fraunces',serif;font-weight:200;font-size:3.5rem;line-height:1;letter-spacing:-.02em;color:var(--white)}
+.stat-n span{color:var(--gold)}
+.stat-l{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.6rem}
+
+/* ── SERVICES ── */
+#services{background:var(--ink);padding:8rem 5vw;position:relative;overflow:hidden}
+#services::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 80% 20%,rgba(15,51,32,.4) 0%,transparent 50%)}
+.section-header{max-width:1280px;margin:0 auto 5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end}
+.label-line{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.label-line::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.label-text{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+h2.serif{font-family:'Fraunces',serif;font-weight:200;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.08;letter-spacing:-.02em;color:var(--white)}
+h2.serif em{font-style:italic;color:var(--gold-lt)}
+h2.serif.dark{color:var(--ink)}
+h2.serif.dark em{color:var(--gold-dk)}
+.section-body{font-size:.95rem;line-height:1.85;color:rgba(247,243,236,.45)}
+.section-body.dark{color:var(--muted)}
+.svcs-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05)}
+.svc{
+  background:var(--ink);padding:3rem 2.5rem;
+  transition:background .3s,transform .3s;position:relative;overflow:hidden;cursor:default;
+}
+.svc::before{content:'';position:absolute;top:0;left:0;bottom:0;width:0;background:linear-gradient(180deg,rgba(201,168,76,.07),rgba(201,168,76,.02));transition:width .4s cubic-bezier(.16,1,.3,1)}
+.svc:hover{background:rgba(255,255,255,.025);transform:translateY(-2px)}
+.svc:hover::before{width:100%}
+.svc-ico{
+  width:58px;height:58px;border-radius:14px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;margin-bottom:2rem;
+  transition:border-color .3s,background .3s;
+}
+.svc:hover .svc-ico{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.2)}
+.svc-num{font-family:'Fraunces',serif;font-size:.8rem;font-weight:400;color:rgba(201,168,76,.25);margin-bottom:.7rem;letter-spacing:.05em}
+.svc-name{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;color:var(--white);margin-bottom:.9rem;line-height:1.2}
+.svc-desc{font-size:.85rem;line-height:1.8;color:rgba(247,243,236,.4);margin-bottom:1.5rem}
+.svc-tags{display:flex;gap:.4rem;flex-wrap:wrap}
+.svc-tag{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.15);color:rgba(201,168,76,.6);padding:.25rem .65rem;border-radius:2px}
+.svc-arrow{position:absolute;bottom:2rem;right:2rem;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:.8rem;transition:all .3s}
+.svc:hover .svc-arrow{border-color:rgba(201,168,76,.4);color:var(--gold);transform:rotate(45deg)}
+
+/* ── MARKETS ── */
+#markets{background:var(--ivory);padding:8rem 5vw;position:relative}
+.markets-wrap{max-width:1280px;margin:0 auto}
+.markets-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4.5rem}
+.market{border-radius:20px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.1);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;cursor:default}
+.market:hover{transform:translateY(-8px);box-shadow:0 24px 72px rgba(0,0,0,.18)}
+.market-visual{height:200px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mv-dk{background:linear-gradient(135deg,#8b0000 0%,#c8102e 50%,#8b0000 100%)}
+.mv-uae{background:linear-gradient(135deg,#005234 0%,#00843d 50%,#005234 100%)}
+.mv-sa{background:linear-gradient(135deg,#014421 0%,#006c35 50%,#014421 100%)}
+.market-big-flag{font-size:6rem;opacity:.2;position:absolute;bottom:-10px;right:-5px;animation:floatB 6s ease-in-out infinite}
+.market-headline{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:200;color:rgba(255,255,255,.95);letter-spacing:.05em;position:relative;z-index:1;text-align:center}
+.market-badge-pill{
+  position:absolute;top:14px;right:14px;
+  font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  padding:.35rem .85rem;border-radius:20px;
+}
+.b-live{background:rgba(74,222,128,.15);border:1px solid rgba(74,222,128,.35);color:#22c55e}
+.b-new{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);color:#c9a84c}
+.market-body{background:var(--white);padding:2rem}
+.market-flag-row{font-size:1.6rem;margin-bottom:.8rem}
+.market-name{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--ink);margin-bottom:.5rem}
+.market-desc{font-size:.83rem;line-height:1.75;color:var(--muted);margin-bottom:1.4rem}
+.market-kpis{display:flex;gap:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(0,0,0,.06)}
+.mk{text-align:center}
+.mk-n{font-family:'Fraunces',serif;font-size:1.4rem;color:var(--ink)}
+.mk-l{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+
+/* ── WHY ── */
+#why{background:var(--forest);padding:8rem 5vw;position:relative;overflow:hidden}
+#why::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:70px 70px}
+.why-wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;position:relative;z-index:2}
+.why-points{margin-top:2.5rem;display:flex;flex-direction:column;gap:2rem}
+.why-pt{display:flex;gap:1.3rem;align-items:flex-start;padding:1.6rem;border:1px solid rgba(255,255,255,.06);border-radius:12px;background:rgba(255,255,255,.02);transition:all .3s}
+.why-pt:hover{background:rgba(201,168,76,.04);border-color:rgba(201,168,76,.15);transform:translateX(6px)}
+.why-ico{width:48px;height:48px;border-radius:10px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.why-pt-body h4{font-size:.95rem;font-weight:600;color:var(--white);margin-bottom:.4rem}
+.why-pt-body p{font-size:.83rem;line-height:1.7;color:rgba(247,243,236,.4)}
+
+/* Competitor table */
+.comp-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden;position:relative}
+.comp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.comp-top{padding:1.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.comp-top-label{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,168,76,.55);margin-bottom:1rem}
+table.ctable{width:100%;border-collapse:collapse}
+table.ctable th{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,243,236,.22);padding:.55rem .8rem;border-bottom:1px solid rgba(255,255,255,.05);text-align:left}
+table.ctable td{font-size:.8rem;padding:.75rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(247,243,236,.5);transition:color .2s}
+table.ctable tr:last-child td{border-bottom:none}
+table.ctable tr:hover td{color:rgba(247,243,236,.75)}
+.ga-tr td{color:rgba(247,243,236,.85)!important}
+.ga-tr td:first-child{color:var(--gold-lt)!important;font-weight:600}
+.ga-tr{background:rgba(201,168,76,.05)}
+.ck-y{color:#4ade80;font-weight:700}.ck-n{color:rgba(255,255,255,.15)}.ck-g{color:var(--gold);font-weight:700}
+.comp-quote{padding:1.8rem 2rem}
+.quote-text{font-size:.85rem;font-style:italic;line-height:1.8;color:rgba(247,243,236,.5)}
+.quote-author{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-top:.8rem}
+
+/* ── PROCESS ── */
+#process{background:var(--ink);padding:8rem 5vw}
+.process-wrap{max-width:1280px;margin:0 auto}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:5rem;position:relative}
+.process-line{position:absolute;top:52px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25) 20%,rgba(201,168,76,.25) 80%,transparent)}
+.p-step{text-align:center;position:relative}
+.p-circle{
+  width:104px;height:104px;border-radius:50%;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;margin:0 auto 1.8rem;
+  position:relative;transition:all .35s cubic-bezier(.16,1,.3,1);
+}
+.p-circle:hover{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.3);transform:scale(1.08)}
+.p-num{
+  position:absolute;top:-4px;right:-4px;
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold));
+  color:var(--ink);font-size:.65rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.p-title{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:400;color:var(--white);margin-bottom:.6rem}
+.p-desc{font-size:.82rem;line-height:1.7;color:rgba(247,243,236,.4)}
+
+/* ── TESTIMONIALS ── */
+#testi{background:var(--ivory);padding:8rem 5vw}
+.testi-wrap{max-width:1280px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4.5rem}
+.tc{
+  background:var(--white);border-radius:16px;
+  padding:2.2rem;border:1px solid rgba(0,0,0,.05);
+  transition:transform .3s,box-shadow .3s;cursor:default;
+  position:relative;overflow:hidden;
+}
+.tc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--forest),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.tc:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.1)}
+.tc:hover::after{transform:scaleX(1)}
+.tc-stars{color:var(--gold);font-size:.95rem;letter-spacing:.05rem;margin-bottom:1.2rem}
+.tc-text{font-size:.9rem;line-height:1.85;color:#4a5568;font-style:italic;margin-bottom:1.8rem}
+.tc-author{display:flex;align-items:center;gap:.9rem}
+.tc-av{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--forest),var(--jade));
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:700;color:var(--gold);
+}
+.tc-name{font-size:.875rem;font-weight:600;color:var(--ink)}
+.tc-role{font-size:.75rem;color:var(--muted);margin-top:.1rem}
+.tc-flag{margin-left:auto;font-size:1.2rem}
+
+/* ── CONTACT ── */
+#contact{background:var(--forest);padding:8rem 5vw;position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.03) 1px,transparent 1px);background-size:70px 70px}
+#contact::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04),transparent 70%);bottom:-200px;right:-100px;pointer-events:none}
+.contact-wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.15fr;gap:6rem;align-items:start;position:relative;z-index:2}
+.contact-perks{margin-top:2.5rem;display:flex;flex-direction:column;gap:1.2rem}
+.perk{display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:10px;transition:all .3s}
+.perk:hover{background:rgba(201,168,76,.05);border-color:rgba(201,168,76,.15)}
+.perk-ico{font-size:1.2rem;flex-shrink:0;width:38px;text-align:center}
+.perk-val{font-size:.88rem;font-weight:600;color:rgba(247,243,236,.75)}
+.perk-lbl{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,243,236,.3)}
+.offices-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2rem}
+.office{
+  display:flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:6px;padding:.55rem 1rem;
+  font-size:.75rem;font-weight:500;color:rgba(247,243,236,.55);
+  transition:all .2s;
+}
+.office:hover{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.18);color:var(--gold-lt)}
+/* Form */
+.form-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:3rem;position:relative;overflow:hidden;backdrop-filter:blur(8px)}
+.form-card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.form-head{margin-bottom:2rem}
+.form-head h3{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:200;color:var(--white)}
+.form-head p{font-size:.8rem;color:rgba(247,243,236,.35);margin-top:.4rem}
+.region-picker{display:flex;gap:.5rem;margin-bottom:1.8rem}
+.rp{
+  flex:1;padding:.65rem .5rem;border-radius:6px;
+  border:1.5px solid rgba(255,255,255,.08);
+  background:transparent;cursor:none;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;
+  color:rgba(247,243,236,.3);display:flex;align-items:center;justify-content:center;gap:.4rem;
+  transition:all .25s;
+}
+.rp:hover,.rp.on{background:rgba(201,168,76,.08);border-color:rgba(201,168,76,.3);color:var(--gold-lt)}
+.fg{margin-bottom:1rem}
+.fl{display:block;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,243,236,.3);margin-bottom:.45rem}
+.fi{
+  width:100%;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);border-radius:8px;
+  padding:.85rem 1rem;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.875rem;color:var(--white);
+  outline:none;transition:border-color .25s,background .25s;
+  -webkit-appearance:none;
+}
+.fi::placeholder{color:rgba(247,243,236,.2)}
+.fi:focus{border-color:rgba(201,168,76,.35);background:rgba(201,168,76,.03)}
+.fi-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.submit-btn{
+  width:100%;margin-top:.5rem;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.8rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold),var(--gold-dk));
+  background-size:200% auto;
+  color:var(--ink);border:none;border-radius:8px;
+  padding:1.1rem;cursor:none;
+  transition:transform .25s,box-shadow .25s,background-position .4s;
+  box-shadow:0 6px 24px rgba(201,168,76,.25);
+}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,168,76,.42);background-position:right center}
+.submit-btn.done{background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.25);color:#4ade80;box-shadow:none;transform:none}
+.form-note{font-size:.68rem;color:rgba(247,243,236,.2);text-align:center;margin-top:.9rem;line-height:1.6}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(201,168,76,.08)}
+.footer-top{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.footer-brand-mark{display:flex;align-items:center;gap:.9rem;margin-bottom:1.2rem}
+.fbm-ico{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--gold-lt),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--ink)}
+.fbm-name{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:400;color:var(--white)}
+.footer-desc{font-size:.82rem;line-height:1.8;color:rgba(247,243,236,.28);max-width:260px;margin-bottom:1.5rem}
+.f-market-tags{display:flex;gap:.5rem;flex-wrap:wrap}
+.fmt{font-size:.62rem;font-weight:700;letter-spacing:.1em;padding:.3rem .7rem;border-radius:20px;border:1px solid rgba(201,168,76,.18);color:rgba(201,168,76,.5)}
+.fc-title{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,243,236,.25);margin-bottom:1.3rem}
+.fc-links{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.fc-links a{font-size:.82rem;color:rgba(247,243,236,.32);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.4rem}
+.fc-links a:hover{color:var(--gold)}
+.footer-bottom{max-width:1280px;margin:0 auto;padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fb-left{font-size:.75rem;color:rgba(247,243,236,.18)}
+.fb-right{display:flex;gap:2rem}
+.fb-right a{font-size:.75rem;color:rgba(247,243,236,.18);text-decoration:none;transition:color .2s}
+.fb-right a:hover{color:var(--gold)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-inner,.why-wrap,.contact-wrap{grid-template-columns:1fr;gap:3rem}
+  .hero-dashboard{display:none}
+  .section-header{grid-template-columns:1fr}
+  .svcs-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr;gap:2rem}
+}
+@media(max-width:768px){
+  nav .nav-links{display:none}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .markets-grid,.testi-grid{grid-template-columns:1fr}
+  .svcs-grid{grid-template-columns:1fr}
+  .process-steps{grid-template-columns:1fr 1fr}
+  .process-line{display:none}
+  .fi-row{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#" class="logo">
+    <div class="logo-mark">G</div>
+    <div class="logo-text">
+      <span class="logo-name">Green Alliance</span>
+      <span class="logo-sub">Global Staffing Solutions</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testi">Stories</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-flags">
+      <button class="flag-btn on" onclick="setFlag(this)">🇩🇰</button>
+      <button class="flag-btn" onclick="setFlag(this)">🇦🇪</button>
+      <button class="flag-btn" onclick="setFlag(this)">🇸🇦</button>
+    </div>
+    <a href="#contact" class="cta-nav">Get Talent</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <canvas id="particles-canvas"></canvas>
+  <div class="hero-orb orb-a"></div>
+  <div class="hero-orb orb-b"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-inner">
+    <!-- Left -->
+    <div>
+      <div class="hero-eyebrow" style="animation:fadeIn .6s .1s ease both;animation-fill-mode:both">
+        <span class="eyebrow-dot"></span>
+        <span class="eyebrow-divider"></span>
+        <span class="eyebrow-text">Denmark · UAE · Saudi Arabia</span>
+      </div>
+      <h1 class="display" style="animation:fadeUp .9s .15s ease both;animation-fill-mode:both">
+        Talent That<br>Moves <em>Markets.</em><br>At Speed.
+      </h1>
+      <p class="hero-body">Green Alliance connects world-class candidates with ambitious companies — from Copenhagen boardrooms to Dubai skyscrapers to Riyadh mega-projects. AI-matched. Human-verified.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary">Find Top Talent</a>
+        <a href="#services" class="btn-ghost">Explore Services →</a>
+      </div>
+      <div class="hero-social-proof">
+        <div class="avatar-stack">
+          <div class="av">ML</div>
+          <div class="av">SA</div>
+          <div class="av">KR</div>
+          <div class="av">JH</div>
+          <div class="av" style="background:linear-gradient(135deg,var(--gold-dk),var(--gold));color:var(--ink)">+</div>
+        </div>
+        <div class="sp-text">
+          <strong>2,000+ placements made</strong>
+          Trusted by HR leaders across 3 markets
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Dashboard -->
+    <div class="hero-dashboard">
+      <div style="position:relative">
+        <div class="float-tag">🏆 Top Staffing DK 2024</div>
+        <div class="glass-card">
+          <div class="dash-header">
+            <span class="dash-title">Live Performance</span>
+            <span class="live-dot">Live</span>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-val">94%</div><div class="kpi-key">Fill Rate</div></div>
+            <div class="kpi"><div class="kpi-val">&lt;7d</div><div class="kpi-key">Time-to-Fill</div></div>
+            <div class="kpi"><div class="kpi-val">97%</div><div class="kpi-key">Retention</div></div>
+          </div>
+          <div class="market-flags-row" style="margin-top:1.2rem">
+            <div class="mflag"><span class="mflag-emoji">🇩🇰</span><div class="mflag-info"><span class="mflag-name">Denmark</span><span class="mflag-status s-live">● Active</span></div></div>
+            <div class="mflag"><span class="mflag-emoji">🇦🇪</span><div class="mflag-info"><span class="mflag-name">UAE</span><span class="mflag-status s-new">✦ 2025</span></div></div>
+            <div class="mflag"><span class="mflag-emoji">🇸🇦</span><div class="mflag-info"><span class="mflag-name">KSA</span><span class="mflag-status s-new">✦ 2025</span></div></div>
+          </div>
+          <div style="margin-top:1.2rem">
+            <div style="font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,243,236,.25);margin-bottom:.7rem">Active Sectors</div>
+            <div class="sector-pills">
+              <span class="pill">🌱 Green Energy</span>
+              <span class="pill">🏗️ Construction</span>
+              <span class="pill">🧹 Facility</span>
+              <span class="pill">🚚 Logistics</span>
+              <span class="pill">💼 Finance</span>
+              <span class="pill">🏥 Healthcare</span>
+            </div>
+          </div>
+        </div>
+        <div class="mini-badge">✓ 4-Hour Response Guarantee</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">🌱 Green Sector Specialists <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">⚡ Under 7-Day Placements <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🌍 Denmark · UAE · Saudi Arabia <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🤖 AI-Powered Matching <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">✦ 97% Client Retention <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🏆 Top Staffing Agency DK 2024 <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🌱 Green Sector Specialists <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">⚡ Under 7-Day Placements <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🌍 Denmark · UAE · Saudi Arabia <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🤖 AI-Powered Matching <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">✦ 97% Client Retention <span class="marquee-sep">·</span></span>
+    <span class="marquee-item">🏆 Top Staffing Agency DK 2024 <span class="marquee-sep">·</span></span>
+  </div>
+</div>
+
+<!-- ── STATS ── -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-block rv">
+      <div class="stat-n" data-target="2000">0<span>+</span></div>
+      <div class="stat-l">Successful Placements</div>
+    </div>
+    <div class="stat-block rv" style="transition-delay:.1s">
+      <div class="stat-n">94<span>.6M DKK</span></div>
+      <div class="stat-l">Revenue 2023</div>
+    </div>
+    <div class="stat-block rv" style="transition-delay:.2s">
+      <div class="stat-n"><span>3</span> Markets</div>
+      <div class="stat-l">DK · UAE · KSA</div>
+    </div>
+    <div class="stat-block rv" style="transition-delay:.3s">
+      <div class="stat-n">90<span>%+</span></div>
+      <div class="stat-l">Client Retention</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="section-header">
+    <div class="rl">
+      <div class="label-line"><span class="label-text">What We Deliver</span></div>
+      <h2 class="serif">Six services.<br><em>One promise.</em></h2>
+    </div>
+    <p class="section-body rr" style="padding-bottom:.3rem">From urgent temp placements to cross-border executive moves — we deliver the right people, faster than anyone else in your market.</p>
+  </div>
+  <div class="svcs-grid">
+    <div class="svc rv" style="transition-delay:0ms">
+      <div class="svc-ico">🔄</div>
+      <div class="svc-num">01</div>
+      <div class="svc-name">Temporary Staffing</div>
+      <p class="svc-desc">Rapid deployment of screened, job-ready candidates for seasonal spikes, project surges or urgent vacancies. Fill roles in days, not weeks.</p>
+      <div class="svc-tags"><span class="svc-tag">Fast Placement</span><span class="svc-tag">All Sectors</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc rv" style="transition-delay:80ms">
+      <div class="svc-ico">🤝</div>
+      <div class="svc-num">02</div>
+      <div class="svc-name">Temp-to-Perm</div>
+      <p class="svc-desc">Trial before you commit. Evaluate candidates on the job before making a permanent offer — reducing hiring risk and maximising fit.</p>
+      <div class="svc-tags"><span class="svc-tag">Low Risk</span><span class="svc-tag">Flexible</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc rv" style="transition-delay:160ms">
+      <div class="svc-ico">🎯</div>
+      <div class="svc-num">03</div>
+      <div class="svc-name">Permanent Recruitment</div>
+      <p class="svc-desc">Deep-search permanent hiring for specialist and leadership roles. We screen for skills, culture alignment, and long-term potential.</p>
+      <div class="svc-tags"><span class="svc-tag">Executive</span><span class="svc-tag">Specialist</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc rv" style="transition-delay:240ms">
+      <div class="svc-ico">🤖</div>
+      <div class="svc-num">04</div>
+      <div class="svc-name">AI-Powered Matching</div>
+      <p class="svc-desc">Our proprietary engine analyses skills, culture fit and sector experience to surface the top 3% of applicants — automatically.</p>
+      <div class="svc-tags"><span class="svc-tag">AI Screening</span><span class="svc-tag">Precision</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc rv" style="transition-delay:320ms">
+      <div class="svc-ico">🌍</div>
+      <div class="svc-num">05</div>
+      <div class="svc-name">International Mobility</div>
+      <p class="svc-desc">Cross-border placements between Denmark, UAE and KSA. Work permits, relocation support, and compliance handled in all three markets.</p>
+      <div class="svc-tags"><span class="svc-tag">🇩🇰 🇦🇪 🇸🇦</span><span class="svc-tag">Visa Support</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+    <div class="svc rv" style="transition-delay:400ms">
+      <div class="svc-ico">🌱</div>
+      <div class="svc-num">06</div>
+      <div class="svc-name">Green Facility Staffing</div>
+      <p class="svc-desc">Eco-certified cleaning and facility teams. Svanemærke-standard in Denmark and sustainability-aligned for UAE & KSA clients.</p>
+      <div class="svc-tags"><span class="svc-tag">Eco Certified</span><span class="svc-tag">Svanemærke</span></div>
+      <div class="svc-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MARKETS ── -->
+<section id="markets">
+  <div class="markets-wrap">
+    <div style="text-align:center;max-width:640px;margin:0 auto">
+      <div class="label-line rv" style="justify-content:center"><span class="label-text" style="color:var(--gold-dk)">Our Markets</span></div>
+      <h2 class="serif dark rv" style="transition-delay:.1s;text-align:center">One standard.<br><em>Three dynamic markets.</em></h2>
+      <p class="section-body dark rv" style="transition-delay:.2s;margin:1rem auto 0;text-align:center">The same AI-powered precision and local expertise that built our reputation in Denmark is now arriving in the Gulf.</p>
+    </div>
+    <div class="markets-grid">
+      <div class="market rv" style="transition-delay:0ms">
+        <div class="market-visual mv-dk">
+          <span class="market-big-flag">🇩🇰</span>
+          <span class="market-headline">DENMARK</span>
+          <span class="market-badge-pill b-live">● Established</span>
+        </div>
+        <div class="market-body">
+          <div class="market-flag-row">🇩🇰</div>
+          <div class="market-name">Denmark</div>
+          <p class="market-desc">Our home market. Deep relationships across Copenhagen, Aarhus and beyond — specialising in green energy, logistics, construction and facility management since 2016.</p>
+          <div class="market-kpis">
+            <div class="mk"><div class="mk-n">8+</div><div class="mk-l">Years Active</div></div>
+            <div class="mk"><div class="mk-n">94M</div><div class="mk-l">DKK Revenue</div></div>
+            <div class="mk"><div class="mk-n">500+</div><div class="mk-l">Clients</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="market rv" style="transition-delay:120ms">
+        <div class="market-visual mv-uae">
+          <span class="market-big-flag">🇦🇪</span>
+          <span class="market-headline">DUBAI · UAE</span>
+          <span class="market-badge-pill b-new">✦ Launching 2025</span>
+        </div>
+        <div class="market-body">
+          <div class="market-flag-row">🇦🇪</div>
+          <div class="market-name">Dubai, UAE</div>
+          <p class="market-desc">The UAE's Vision 2031 agenda demands skilled talent at pace. We're entering Dubai's fastest-growing sectors: construction, renewables, hospitality and financial services.</p>
+          <div class="market-kpis">
+            <div class="mk"><div class="mk-n">2025</div><div class="mk-l">Launch</div></div>
+            <div class="mk"><div class="mk-n">20%</div><div class="mk-l">Market Target</div></div>
+            <div class="mk"><div class="mk-n">DIFC</div><div class="mk-l">Registered</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="market rv" style="transition-delay:240ms">
+        <div class="market-visual mv-sa">
+          <span class="market-big-flag">🇸🇦</span>
+          <span class="market-headline">SAUDI ARABIA</span>
+          <span class="market-badge-pill b-new">✦ Launching 2025</span>
+        </div>
+        <div class="market-body">
+          <div class="market-flag-row">🇸🇦</div>
+          <div class="market-name">Saudi Arabia</div>
+          <p class="market-desc">Vision 2030 and NEOM are creating unprecedented demand for skilled professionals. We serve both expat pipelines and Saudisation-compliant local talent strategies.</p>
+          <div class="market-kpis">
+            <div class="mk"><div class="mk-n">2025</div><div class="mk-l">Launch</div></div>
+            <div class="mk"><div class="mk-n">NEOM</div><div class="mk-l">Focus</div></div>
+            <div class="mk"><div class="mk-n">Nitaqat</div><div class="mk-l">Compliant</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ── -->
+<section id="why">
+  <div class="why-wrap">
+    <div>
+      <div class="label-line rl"><span class="label-text">Why Green Alliance</span></div>
+      <h2 class="serif rl" style="transition-delay:.1s">The gap between<br><em>speed & quality</em><br>is where we win.</h2>
+      <p style="font-size:.95rem;line-height:1.85;color:rgba(247,243,236,.45);max-width:440px;margin-top:1rem" class="rl" style="transition-delay:.2s">Large agencies move slowly. Brokers cut corners. We occupy the niche where local agility meets enterprise-grade quality.</p>
+      <div class="why-points">
+        <div class="why-pt rv" style="transition-delay:.15s">
+          <div class="why-ico">⚡</div>
+          <div class="why-pt-body"><h4>Under 7-Day Time-to-Fill</h4><p>From vacancy brief to candidate start — faster than any large agency, without sacrificing rigour.</p></div>
+        </div>
+        <div class="why-pt rv" style="transition-delay:.25s">
+          <div class="why-ico">🎯</div>
+          <div class="why-pt-body"><h4>Deep Sector Expertise</h4><p>Green energy, construction, logistics and facility management — your brief lands with someone who knows your world.</p></div>
+        </div>
+        <div class="why-pt rv" style="transition-delay:.35s">
+          <div class="why-ico">🌐</div>
+          <div class="why-pt-body"><h4>Local Presence, Global Pipeline</h4><p>Teams on the ground in Copenhagen, Dubai and Riyadh — with a shared candidate database across all three markets.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="rr" style="transition-delay:.1s">
+      <div class="comp-card">
+        <div class="comp-top">
+          <div class="comp-top-label">Competitive Positioning Matrix</div>
+          <table class="ctable">
+            <thead><tr><th>Provider</th><th>Speed</th><th>Quality</th><th>Local Fit</th><th>Green</th></tr></thead>
+            <tbody>
+              <tr class="ga-tr"><td>✦ Green Alliance</td><td class="ck-g">✦</td><td class="ck-g">✦</td><td class="ck-g">✦</td><td class="ck-g">✦</td></tr>
+              <tr><td>Large Agencies</td><td class="ck-n">✗</td><td class="ck-y">✓</td><td class="ck-n">✗</td><td class="ck-n">✗</td></tr>
+              <tr><td>Small Brokers</td><td class="ck-y">✓</td><td class="ck-n">✗</td><td class="ck-y">✓</td><td class="ck-n">✗</td></tr>
+              <tr><td>Generic Platforms</td><td class="ck-y">✓</td><td class="ck-n">✗</td><td class="ck-n">✗</td><td class="ck-n">✗</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="comp-quote">
+          <p class="quote-text">"We tried two large agencies before Green Alliance. The difference in placement speed and candidate quality was night and day. They understood our sector from day one."</p>
+          <div class="quote-author">— Head of HR, Renewable Energy Co., Copenhagen 🇩🇰</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section id="process">
+  <div class="process-wrap">
+    <div style="text-align:center;max-width:600px;margin:0 auto">
+      <div class="label-line rv" style="justify-content:center"><span class="label-text">How It Works</span></div>
+      <h2 class="serif rv" style="transition-delay:.1s;text-align:center">Talent placed in<br><em>four seamless steps.</em></h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-line"></div>
+      <div class="p-step rv" style="transition-delay:0ms">
+        <div class="p-circle">📋<div class="p-num">1</div></div>
+        <div class="p-title">Brief Us</div>
+        <p class="p-desc">Share your vacancy, timeline, sector and ideal candidate profile. We respond within 4 business hours.</p>
+      </div>
+      <div class="p-step rv" style="transition-delay:100ms">
+        <div class="p-circle">🤖<div class="p-num">2</div></div>
+        <div class="p-title">AI + Human Screen</div>
+        <p class="p-desc">Our engine surfaces top candidates. Our consultants verify skills, culture fit and motivation.</p>
+      </div>
+      <div class="p-step rv" style="transition-delay:200ms">
+        <div class="p-circle">👥<div class="p-num">3</div></div>
+        <div class="p-title">You Interview</div>
+        <p class="p-desc">We present a shortlist of 3–5 pre-screened candidates. You choose who to meet — we handle logistics.</p>
+      </div>
+      <div class="p-step rv" style="transition-delay:300ms">
+        <div class="p-circle">🚀<div class="p-num">4</div></div>
+        <div class="p-title">They Start</div>
+        <p class="p-desc">Onboarding, contracts and compliance handled by us. Your new hire is productive from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testi">
+  <div class="testi-wrap">
+    <div style="text-align:center;max-width:580px;margin:0 auto">
+      <div class="label-line rv" style="justify-content:center"><span class="label-text" style="color:var(--gold-dk)">Client Stories</span></div>
+      <h2 class="serif dark rv" style="transition-delay:.1s;text-align:center">Trusted by leaders<br><em>across three markets.</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="tc rv" style="transition-delay:0ms">
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-text">"Green Alliance filled 12 warehouse positions in under a week — roles that had been open for two months with other agencies. They understand logistics at a deep level."</p>
+        <div class="tc-author"><div class="tc-av">ML</div><div><div class="tc-name">Mads Larsen</div><div class="tc-role">Operations Director · Copenhagen</div></div><div class="tc-flag">🇩🇰</div></div>
+      </div>
+      <div class="tc rv" style="transition-delay:120ms">
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-text">"As an SME we can't afford a bad hire. Green Alliance screened so thoroughly that all three of our last hires have been retained past the 12-month mark. Exceptional."</p>
+        <div class="tc-author"><div class="tc-av">SH</div><div><div class="tc-name">Sara Holm</div><div class="tc-role">CEO · Tech SME, Aarhus</div></div><div class="tc-flag">🇩🇰</div></div>
+      </div>
+      <div class="tc rv" style="transition-delay:240ms">
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-text">"We needed renewable energy engineers on short notice. Green Alliance delivered the right people. We are now expanding the partnership to our Dubai operations."</p>
+        <div class="tc-author"><div class="tc-av">KA</div><div><div class="tc-name">Khalid Al-Rashid</div><div class="tc-role">Project Director · Renewables, UAE</div></div><div class="tc-flag">🇦🇪</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <div class="label-line rl"><span class="label-text">Get In Touch</span></div>
+      <h2 class="serif rl" style="transition-delay:.1s">Build your<br><em>dream team</em><br>today.</h2>
+      <div class="contact-perks">
+        <div class="perk rv" style="transition-delay:.15s"><div class="perk-ico">⚡</div><div><div class="perk-val">4-Hour Response</div><div class="perk-lbl">We reply fast. Every time.</div></div></div>
+        <div class="perk rv" style="transition-delay:.22s"><div class="perk-ico">🎁</div><div><div class="perk-val">Free Consultation</div><div class="perk-lbl">No obligation, no cost</div></div></div>
+        <div class="perk rv" style="transition-delay:.29s"><div class="perk-ico">🌍</div><div><div class="perk-val">3 Markets, 1 Team</div><div class="perk-lbl">Denmark · UAE · Saudi Arabia</div></div></div>
+        <div class="perk rv" style="transition-delay:.36s"><div class="perk-ico">✉️</div><div><div class="perk-val">hello@greenalliance.dk</div><div class="perk-lbl">Direct line to our consultants</div></div></div>
+      </div>
+      <div class="offices-row rv" style="transition-delay:.42s">
+        <div class="office"><span>🇩🇰</span> Copenhagen HQ</div>
+        <div class="office"><span>🇦🇪</span> Dubai Office</div>
+        <div class="office"><span>🇸🇦</span> Riyadh Office</div>
+      </div>
+    </div>
+    <div class="form-card rr">
+      <div class="form-head">
+        <h3>Start the Conversation</h3>
+        <p>Free consultation · Response within 4 hours</p>
+      </div>
+      <div class="fg">
+        <label class="fl">Select Market</label>
+        <div class="region-picker">
+          <button class="rp on" onclick="pickRegion(this)">🇩🇰 Denmark</button>
+          <button class="rp" onclick="pickRegion(this)">🇦🇪 Dubai</button>
+          <button class="rp" onclick="pickRegion(this)">🇸🇦 Saudi Arabia</button>
+        </div>
+      </div>
+      <div class="fi-row">
+        <div class="fg"><label class="fl">First Name</label><input class="fi" type="text" placeholder="Mohammed"/></div>
+        <div class="fg"><label class="fl">Last Name</label><input class="fi" type="text" placeholder="Al-Farsi"/></div>
+      </div>
+      <div class="fi-row">
+        <div class="fg"><label class="fl">Work Email</label><input class="fi" type="email" placeholder="you@company.com"/></div>
+        <div class="fg"><label class="fl">Company</label><input class="fi" type="text" placeholder="Your Company"/></div>
+      </div>
+      <div class="fi-row">
+        <div class="fg"><label class="fl">Hiring Need</label>
+          <select class="fi">
+            <option value="">Select type…</option>
+            <option>Temporary Staffing</option>
+            <option>Permanent Recruitment</option>
+            <option>Temp-to-Perm</option>
+            <option>International Mobility</option>
+            <option>Facility Staffing</option>
+            <option>Volume / Bulk Hiring</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Timeline</label>
+          <select class="fi">
+            <option value="">When do you need?</option>
+            <option>Within 1 week</option>
+            <option>Within 1 month</option>
+            <option>1–3 months</option>
+            <option>3+ months</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">Tell Us More</label><textarea class="fi" rows="3" placeholder="Role, number of positions, sector, any specific requirements…"></textarea></div>
+      <button class="submit-btn" id="sb" onclick="doSubmit()">Request Free Consultation →</button>
+      <p class="form-note">Your details are never shared. We respect your privacy completely.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-mark">
+        <div class="fbm-ico">G</div>
+        <div class="fbm-name">Green Alliance ApS</div>
+      </div>
+      <p class="footer-desc">Empowering businesses with precision staffing for sustainable growth — across Denmark, UAE, and Saudi Arabia.</p>
+      <div class="f-market-tags">
+        <span class="fmt">🇩🇰 Denmark</span>
+        <span class="fmt">🇦🇪 UAE</span>
+        <span class="fmt">🇸🇦 KSA</span>
+        <span class="fmt">www.greenalliance.dk</span>
+      </div>
+    </div>
+    <div>
+      <div class="fc-title">Services</div>
+      <ul class="fc-links">
+        <li><a href="#">Temporary Staffing</a></li>
+        <li><a href="#">Permanent Recruitment</a></li>
+        <li><a href="#">Temp-to-Perm</a></li>
+        <li><a href="#">International Mobility</a></li>
+        <li><a href="#">Facility Staffing</a></li>
+        <li><a href="#">AI Matching</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-title">Markets</div>
+      <ul class="fc-links">
+        <li><a href="#">Denmark</a></li>
+        <li><a href="#">Dubai, UAE</a></li>
+        <li><a href="#">Saudi Arabia</a></li>
+        <li><a href="#">International</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fc-title">Company</div>
+      <ul class="fc-links">
+        <li><a href="https://www.greenalliance.dk" target="_blank">↗ greenalliance.dk</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="fb-left">© 2025 Green Alliance ApS · CVR: XXXXXXXX · All rights reserved.</span>
+    <div class="fb-right">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx-6+'px';cur.style.top=my-6+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx-20+'px';ring.style.top=ry-20+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.svc,.market,.tc,.why-pt,.mflag,.pill').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.transform='scale(2)';ring.style.transform='scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{cur.style.transform='scale(1)';ring.style.transform='scale(1)'});
+});
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stuck',scrollY>50));
+
+/* ── PARTICLES ── */
+const canvas=document.getElementById('particles-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,particles=[];
+function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+resize();window.addEventListener('resize',resize);
+class Particle{
+  constructor(){this.reset()}
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.2+.3;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.a=Math.random()*.4+.05}
+  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${this.a})`;ctx.fill()}
+  update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset()}
+}
+for(let i=0;i<90;i++)particles.push(new Particle());
+function animParticles(){
+  ctx.clearRect(0,0,W,H);
+  particles.forEach(p=>{p.update();p.draw()});
+  // connect nearby
+  for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
+    const d=Math.hypot(particles[i].x-particles[j].x,particles[i].y-particles[j].y);
+    if(d<100){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(201,168,76,${.08*(1-d/100)})`;ctx.lineWidth=.5;ctx.stroke()}
+  }
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+/* ── SCROLL REVEAL ── */
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.rv,.rl,.rr,.rs').forEach(el=>io.observe(el));
+
+/* ── FLAGS ── */
+function setFlag(b){document.querySelectorAll('.flag-btn').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+function pickRegion(b){document.querySelectorAll('.rp').forEach(x=>x.classList.remove('on'));b.classList.add('on')}
+
+/* ── FORM ── */
+function doSubmit(){
+  const b=document.getElementById('sb');
+  b.textContent='✓ Received! We\'ll be in touch within 4 hours.';
+  b.classList.add('done');b.disabled=true;
+  setTimeout(()=>{b.textContent='Request Free Consultation →';b.classList.remove('done');b.disabled=false},5000);
+}
+
+/* ── COUNTER ANIMATION ── */
+function animateCounters(){
+  document.querySelectorAll('.stat-n[data-target]').forEach(el=>{
+    const target=parseInt(el.dataset.target);
+    let start=0;const dur=1800;const step=target/dur*16;
+    const t=setInterval(()=>{start+=step;if(start>=target){el.innerHTML=target.toLocaleString()+'<span>+</span>';clearInterval(t)}else el.innerHTML=Math.floor(start).toLocaleString()+'<span>+</span>'},16);
+  });
+}
+const statsObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounters();statsObs.disconnect()}})},{threshold:.3});
+const statsEl=document.querySelector('#stats');if(statsEl)statsObs.observe(statsEl);
+</script>
+</body>
+</html>

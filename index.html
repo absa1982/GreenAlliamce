@@ -1033,6 +1033,200 @@ footer{background:var(--ink);padding:5rem 5vw 2.5rem;border-top:1px solid rgba(2
   </div>
 </section>
 
+  <!-- ── CANDIDATE APPLICATION FORM ── -->
+<section id="candidate-form" style="background: var(--forest); padding: 5rem 5vw;">
+  <div class="markets-wrap">
+    <div style="text-align:center; max-width:640px; margin:0 auto">
+      <div class="label-line rv" style="justify-content:center">
+        <span class="label-text">Join Our Talent Network</span>
+      </div>
+      <h2 class="serif rv" style="transition-delay:.1s; text-align:center">
+        Become part of<br><em>Green Alliance talent pool</em>
+      </h2>
+      <p class="section-body rv" style="transition-delay:.2s; margin:1rem auto 0; text-align:center">
+        Submit your profile and let our AI match you with top employers across Denmark, UAE, and Saudi Arabia
+      </p>
+    </div>
+    
+    <div style="max-width: 800px; margin: 3rem auto 0;">
+      <div class="form-card">
+        <div class="form-head">
+          <h3>Candidate Application</h3>
+          <p>Your profile will be reviewed by our recruitment team</p>
+        </div>
+        
+        <form id="candidateForm">
+          <!-- Personal Information -->
+          <div class="fi-row">
+            <div class="fg"><label class="fl">Full Name *</label><input class="fi" type="text" name="fullName" required/></div>
+            <div class="fg"><label class="fl">Email *</label><input class="fi" type="email" name="email" required/></div>
+          </div>
+          
+          <div class="fi-row">
+            <div class="fg"><label class="fl">Phone *</label><input class="fi" type="tel" name="phone" placeholder="+45 XX XX XX XX" required/></div>
+            <div class="fg"><label class="fl">Current Location *</label><input class="fi" type="text" name="currentLocation" placeholder="City, Country" required/></div>
+          </div>
+          
+          <!-- Professional Details -->
+          <div class="fi-row">
+            <div class="fg">
+              <label class="fl">Sector *</label>
+              <select class="fi" name="sector" required>
+                <option value="">Select your sector</option>
+                <option>Green Energy</option>
+                <option>Construction</option>
+                <option>Facility Management</option>
+                <option>Logistics</option>
+                <option>Finance</option>
+                <option>Healthcare</option>
+                <option>IT / Technology</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl">Years of Experience *</label>
+              <select class="fi" name="experience" required>
+                <option value="">Select</option>
+                <option>0-1</option>
+                <option>2-3</option>
+                <option>4-5</option>
+                <option>6-8</option>
+                <option>9-10</option>
+                <option>10+</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="fg">
+            <label class="fl">Skills (comma separated) *</label>
+            <input class="fi" type="text" name="skills" placeholder="Python, Project Management, SAP, AutoCAD..." required/>
+          </div>
+          
+          <div class="fi-row">
+            <div class="fg">
+              <label class="fl">Preferred Location *</label>
+              <select class="fi" name="location" required>
+                <option value="">Select preferred market</option>
+                <option>Denmark</option>
+                <option>UAE</option>
+                <option>Saudi Arabia</option>
+                <option>Flexible / Any</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label class="fl">Salary Expectation (USD) *</label>
+              <input class="fi" type="text" name="salary" placeholder="e.g., 75,000" required/>
+            </div>
+          </div>
+          
+          <div class="fi-row">
+            <div class="fg">
+              <label class="fl">Languages Spoken *</label>
+              <input class="fi" type="text" name="languages" placeholder="English, Arabic, Danish..." required/>
+            </div>
+            <div class="fg">
+              <label class="fl">Notice Period (weeks) *</label>
+              <select class="fi" name="availability" required>
+                <option value="1">Immediate (1 week or less)</option>
+                <option value="2">2 weeks</option>
+                <option value="4">1 month</option>
+                <option value="8">2 months</option>
+                <option value="12">3+ months</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="fg">
+            <label class="fl">Education & Certifications</label>
+            <input class="fi" type="text" name="education" placeholder="Bachelor's in Engineering, PMP, CPA..."/>
+          </div>
+          
+          <div class="fg">
+            <label class="fl">Additional Notes (optional)</label>
+            <textarea class="fi" name="notes" rows="3" placeholder="Tell us more about your experience, preferred roles, or any other information..."></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn" id="candidateSubmitBtn">Submit Application →</button>
+          <p class="form-note">Your information is secure and will only be shared with potential employers after your consent.</p>
+          <p id="candidateFormStatus" style="text-align:center; margin-top:10px; font-size:12px;"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Candidate Form Submission
+const CANDIDATE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_CANDIDATE_SCRIPT_URL/exec';
+
+document.getElementById('candidateForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const submitBtn = document.getElementById('candidateSubmitBtn');
+  const originalText = submitBtn.textContent;
+  const statusEl = document.getElementById('candidateFormStatus');
+  
+  // Collect form data
+  const formData = {
+    fullName: this.querySelector('[name="fullName"]').value,
+    email: this.querySelector('[name="email"]').value,
+    phone: this.querySelector('[name="phone"]').value,
+    currentLocation: this.querySelector('[name="currentLocation"]').value,
+    sector: this.querySelector('[name="sector"]').value,
+    experience: this.querySelector('[name="experience"]').value,
+    skills: this.querySelector('[name="skills"]').value,
+    location: this.querySelector('[name="location"]').value,
+    salary: this.querySelector('[name="salary"]').value,
+    languages: this.querySelector('[name="languages"]').value,
+    availability: this.querySelector('[name="availability"]').value,
+    education: this.querySelector('[name="education"]').value,
+    notes: this.querySelector('[name="notes"]').value
+  };
+  
+  // Validate required fields
+  if (!formData.fullName || !formData.email || !formData.phone) {
+    statusEl.style.color = '#ff6b6b';
+    statusEl.textContent = 'Please fill all required fields.';
+    return;
+  }
+  
+  // Disable button
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+  statusEl.style.color = '#c9a84c';
+  statusEl.textContent = 'Submitting your application...';
+  
+  try {
+    const response = await fetch(CANDIDATE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    
+    statusEl.style.color = '#4ade80';
+    statusEl.textContent = '✓ Application received! You will receive a confirmation email within 24 hours.';
+    submitBtn.textContent = '✓ Application Submitted!';
+    
+    // Clear form
+    this.reset();
+    
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+      statusEl.textContent = '';
+    }, 5000);
+    
+  } catch(error) {
+    console.error('Submission error:', error);
+    statusEl.style.color = '#ff6b6b';
+    statusEl.textContent = 'Error submitting. Please email your CV to careers@greenalliance.dk';
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+  }
+});
+</script>
+  
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-top">
